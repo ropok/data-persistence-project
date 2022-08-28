@@ -68,9 +68,17 @@ public class MainManager : MonoBehaviour
         ScoreText.text = $"Score : {m_Points}";
     }
 
+    void RecordHighScore(int highScore)
+    {
+        DataManager.Instance.highScoreUsername = DataManager.Instance.inputUserName;
+        DataManager.Instance.highScore = highScore;
+        DataManager.Instance.SaveHighScore();
+    }
+
     public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        if (m_Points > DataManager.Instance.highScore) RecordHighScore(m_Points);
     }
 }
